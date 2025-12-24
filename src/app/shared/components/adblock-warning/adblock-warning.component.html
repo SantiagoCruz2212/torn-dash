@@ -1,0 +1,84 @@
+<!-- AdBlock Warning Overlay -->
+<div class="fixed inset-0 bg-black/95 backdrop-blur-sm z-[9999] flex items-center justify-center p-3 sm:p-4 md:p-6">
+  <div class="max-w-lg w-full rounded-lg border-2 border-accent bg-surface-dark shadow-[0_0_50px_rgba(242,92,13,0.3)] overflow-hidden max-h-[95vh] overflow-y-auto">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-accent/20 to-transparent border-b border-accent/30 p-4 sm:p-5">
+      <div class="flex items-center gap-3">
+        <div class="size-12 sm:size-14 rounded-full bg-accent/20 flex items-center justify-center border-2 border-accent flex-shrink-0">
+          <span class="material-symbols-outlined text-2xl sm:text-3xl text-accent">block</span>
+        </div>
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white tracking-wide">AdBlock Detectado</h2>
+          <p class="text-xs sm:text-sm text-text-muted mt-0.5">Sistema de Seguridad Activo</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-4 sm:p-6 space-y-4 sm:space-y-5">
+      <!-- Warning Message -->
+      <div class="bg-accent/10 border border-accent/30 rounded-lg p-3 sm:p-4">
+        <div class="flex gap-3">
+          <span class="material-symbols-outlined text-xl sm:text-2xl text-accent flex-shrink-0">warning</span>
+          <div>
+            <h3 class="font-bold text-white text-sm sm:text-base mb-1.5">Acceso Bloqueado</h3>
+            <p class="text-xs sm:text-sm text-text-muted leading-relaxed">
+              Hemos detectado un <span class="text-accent font-bold">bloqueador de anuncios</span> activo.
+              Este sitio se financia con publicidad para ofrecer herramientas gratuitas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="space-y-3">
+        <h3 class="font-bold text-white text-sm sm:text-base flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-lg sm:text-xl">info</span>
+          Pasos para continuar:
+        </h3>
+
+        <ol class="space-y-2 sm:space-y-2.5 pl-4 sm:pl-6">
+          <li class="flex gap-2 sm:gap-3 text-xs sm:text-sm text-text-muted">
+            <span class="text-primary font-bold flex-shrink-0">1.</span>
+            <span>Desactiva tu bloqueador de anuncios para este sitio</span>
+          </li>
+          <li class="flex gap-2 sm:gap-3 text-xs sm:text-sm text-text-muted">
+            <span class="text-primary font-bold flex-shrink-0">2.</span>
+            <span>Agrega <span class="text-white font-mono bg-surface-border px-1.5 py-0.5 rounded text-xs">torndash.com</span> a tu lista blanca</span>
+          </li>
+          <li class="flex gap-2 sm:gap-3 text-xs sm:text-sm text-text-muted">
+            <span class="text-primary font-bold flex-shrink-0">3.</span>
+            <span>Haz clic en "Verificar nuevamente" abajo</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Why Ads Section -->
+      <div class="bg-primary/5 border border-primary/20 rounded-lg p-3">
+        <div class="flex items-start gap-2 sm:gap-3">
+          <span class="material-symbols-outlined text-primary text-lg sm:text-xl flex-shrink-0">favorite</span>
+          <p class="text-xs sm:text-sm text-text-muted">
+            <span class="text-primary font-bold">¿Por qué anuncios?</span> Los anuncios mantienen este sitio
+            100% gratuito y permiten desarrollar nuevas herramientas.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex justify-center pt-2 sm:pt-3">
+        <button
+          (click)="recheckAdBlock()"
+          [disabled]="isRechecking"
+          class="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-primary hover:bg-primary-dark text-black font-bold rounded-lg text-sm sm:text-base uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(13,242,89,0.3)] hover:shadow-[0_0_30px_rgba(13,242,89,0.5)] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+          <span class="material-symbols-outlined text-lg sm:text-xl" [class.animate-spin]="isRechecking">{{ isRechecking ? 'progress_activity' : 'refresh' }}</span>
+          {{ isRechecking ? 'Verificando...' : 'Verificar Nuevamente' }}
+        </button>
+      </div>
+
+      <!-- Note -->
+      <p class="text-center text-[10px] sm:text-xs text-text-muted">
+        Si crees que esto es un error, intenta recargar la página.
+      </p>
+    </div>
+  </div>
+</div>

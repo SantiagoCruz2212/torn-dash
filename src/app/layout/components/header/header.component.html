@@ -1,0 +1,68 @@
+<header class="h-16 border-b border-surface-border bg-surface-dark/80 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-30">
+  <!-- Stats Bars -->
+  <div class="flex items-center gap-3 flex-1 justify-start">
+    <!-- Energy -->
+    <div class="flex items-center gap-2 px-3 py-2 rounded border border-surface-border bg-surface-dark/50 min-w-[140px]">
+      <span class="material-symbols-outlined text-primary text-sm">bolt</span>
+      <div class="flex-1">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-bold text-white">Energy</span>
+          <span class="text-xs text-text-muted font-mono">{{ bars.energy.current }}/{{ bars.energy.max }}</span>
+        </div>
+        <div class="h-1.5 bg-surface-border rounded-full overflow-hidden">
+          <div class="h-full {{ getBarColor(bars.energy.percent) }} transition-all duration-300"
+               [style.width.%]="bars.energy.percent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Happy -->
+    <div class="flex items-center gap-2 px-3 py-2 rounded border border-surface-border bg-surface-dark/50 min-w-[140px]">
+      <span class="material-symbols-outlined text-yellow-500 text-sm">sentiment_satisfied</span>
+      <div class="flex-1">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-bold text-white">Happy</span>
+          <span class="text-xs text-text-muted font-mono">{{ bars.happy.current }}/{{ bars.happy.max }}</span>
+        </div>
+        <div class="h-1.5 bg-surface-border rounded-full overflow-hidden">
+          <div class="h-full {{ getBarColor(bars.happy.percent) }} transition-all duration-300"
+               [style.width.%]="bars.happy.percent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nerve -->
+    <div class="flex items-center gap-2 px-3 py-2 rounded border border-surface-border bg-surface-dark/50 min-w-[140px]">
+      <span class="material-symbols-outlined text-accent text-sm">psychology</span>
+      <div class="flex-1">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-bold text-white">Nerve</span>
+          <span class="text-xs text-text-muted font-mono">{{ bars.nerve.current }}/{{ bars.nerve.max }}</span>
+        </div>
+        <div class="h-1.5 bg-surface-border rounded-full overflow-hidden">
+          <div class="h-full {{ getBarColor(bars.nerve.percent) }} transition-all duration-300"
+               [style.width.%]="bars.nerve.percent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center gap-4">
+    <!-- Connected Status -->
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+      <span class="relative flex h-2 w-2">
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+      </span>
+      <span class="text-xs font-bold text-primary uppercase tracking-wider">Conectado</span>
+    </div>
+
+    <!-- Logout -->
+    <button
+      (click)="logout()"
+      class="size-9 flex items-center justify-center rounded border border-surface-border text-text-muted hover:text-accent hover:border-accent transition-colors"
+      title="Cerrar sesión">
+      <span class="material-symbols-outlined text-[20px]">logout</span>
+    </button>
+  </div>
+</header>

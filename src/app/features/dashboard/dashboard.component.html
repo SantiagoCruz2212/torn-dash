@@ -1,0 +1,126 @@
+<div class="flex flex-col gap-6">
+  <!-- Ad Banner -->
+  <app-ad-banner></app-ad-banner>
+
+  <!-- Main Layout -->
+  <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+    <!-- Main Content Area -->
+    <div class="xl:col-span-3 flex flex-col gap-6">
+      <!-- Travel Radar Table -->
+      <div class="rounded border border-surface-border bg-surface-dark flex flex-col overflow-hidden">
+        <div class="px-6 py-4 border-b border-surface-border flex items-center justify-between bg-[#1a211e]">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">travel_explore</span>
+            <h2 class="font-bold text-lg text-white tracking-wide">Travel Radar</h2>
+          </div>
+          <button class="text-xs text-primary hover:text-white font-mono uppercase border border-primary/30 hover:border-primary px-2 py-1 rounded transition-colors">
+            Refresh Data
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-xs uppercase text-text-muted border-b border-surface-border bg-black/20">
+                <th class="px-6 py-3 font-semibold tracking-wider w-12">Dest</th>
+                <th class="px-6 py-3 font-semibold tracking-wider">Country</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-right">Flight Time</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-right">Item Cost</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-right">Profit Est.</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-center">Trend</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm divide-y divide-surface-border">
+              <tr *ngFor="let destination of travelDestinations" class="group hover:bg-white/5 transition-colors">
+                <td class="px-6 py-4">
+                  <div class="size-8 rounded overflow-hidden relative">
+                    <img [src]="destination.flagUrl" [alt]="destination.country" class="w-full h-full object-cover" />
+                  </div>
+                </td>
+                <td class="px-6 py-4 font-medium text-white">{{ destination.country }}</td>
+                <td class="px-6 py-4 text-right text-text-muted font-mono">{{ destination.flightTime }}</td>
+                <td class="px-6 py-4 text-right font-mono">{{ destination.itemCost }}</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex flex-col items-end">
+                    <span class="font-bold font-mono" [ngClass]="destination.profitClass">{{ destination.profit }}</span>
+                    <span class="text-[10px] text-text-muted">{{ destination.profitLabel }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex justify-center">
+                    <div class="h-8 w-24 rounded flex items-end justify-between px-1 pb-1 gap-0.5"
+                         [ngClass]="destination.trendClass + '/10'">
+                      <div *ngFor="let value of destination.trend"
+                           class="w-full rounded-sm"
+                           [ngClass]="destination.trendClass"
+                           [style.height.%]="value"
+                           [style.opacity]="value/100 + 0.3"></div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="xl:col-span-1 flex flex-col gap-6">
+      <!-- Stock ROI Widget -->
+      <div class="rounded border border-surface-border bg-surface-dark flex flex-col p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-white flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+            Stock ROI
+          </h3>
+          <span class="text-xs text-text-muted bg-surface-border px-1.5 py-0.5 rounded">24h</span>
+        </div>
+        <div class="space-y-4">
+          <div *ngFor="let stock of stocks; let i = index" class="flex items-center justify-between group cursor-pointer">
+            <div class="flex items-center gap-3">
+              <div class="size-10 bg-[#1e2823] rounded flex items-center justify-center text-xs font-bold text-white border border-surface-border group-hover:border-primary transition-colors">
+                {{ stock.symbol }}
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white">{{ stock.name }}</p>
+                <p class="text-xs text-text-muted">{{ stock.sector }}</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="text-sm font-bold font-mono" [ngClass]="stock.changeClass">{{ stock.change }}</p>
+              <p class="text-xs text-text-muted font-mono">{{ stock.price }}</p>
+            </div>
+          </div>
+          <div *ngFor="let i of [1,2]" class="w-full bg-surface-border h-px"></div>
+        </div>
+        <button class="mt-5 w-full py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold uppercase rounded border border-primary/20 transition-all">
+          View Portfolio
+        </button>
+      </div>
+
+      <!-- War Status Widget -->
+      <div class="rounded border border-surface-border bg-surface-dark p-5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 to-transparent pointer-events-none"></div>
+        <div class="flex items-center gap-2 mb-3 relative z-10">
+          <span class="material-symbols-outlined text-accent">swords</span>
+          <h3 class="font-bold text-white">War Status</h3>
+        </div>
+        <div class="flex items-center justify-between mb-2 relative z-10">
+          <span class="text-sm text-text-muted">Enemy:</span>
+          <span class="text-sm font-bold text-accent">{{ warStatus.enemy }}</span>
+        </div>
+        <div class="relative w-full h-2 bg-surface-border rounded-full overflow-hidden z-10">
+          <div class="absolute left-0 top-0 bottom-0 bg-primary" [style.width.%]="warStatus.yourPercent"></div>
+          <div class="absolute right-0 top-0 bottom-0 bg-accent" [style.width.%]="warStatus.enemyPercent"></div>
+        </div>
+        <div class="flex justify-between mt-1 text-xs font-mono font-bold z-10">
+          <span class="text-primary">{{ warStatus.yourPercent }}%</span>
+          <span class="text-accent">{{ warStatus.enemyPercent }}%</span>
+        </div>
+      </div>
+
+      <!-- Ad Box -->
+      <app-ad-box></app-ad-box>
+    </div>
+  </div>
+</div>

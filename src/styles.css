@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #102216;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #22492f;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0df259;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(22, 27, 24, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(42, 56, 48, 0.5);
+  }
+}

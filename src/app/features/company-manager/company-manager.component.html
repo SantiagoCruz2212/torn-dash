@@ -1,0 +1,277 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-white">{{ companyInfo.name }}</h1>
+      <div class="flex items-center gap-4 mt-2">
+        <p class="text-text-muted">{{ companyInfo.type }}</p>
+        <div class="flex items-center gap-1">
+          <span *ngFor="let star of getRatingStars()" class="material-symbols-outlined text-yellow-500 text-sm">{{ star }}</span>
+        </div>
+        <span class="text-xs text-text-muted">{{ companyInfo.days_old }} días</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button class="px-4 py-2 bg-primary/10 hover:bg-primary hover:text-black text-primary border border-primary/30 rounded font-bold text-sm uppercase tracking-wider transition-all flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">settings</span>
+        <span>Configuración</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Ad Banner -->
+  <app-ad-banner></app-ad-banner>
+
+  <!-- Stats Overview -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Production -->
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+          <span class="material-symbols-outlined text-primary">factory</span>
+        </div>
+        <div class="flex-1">
+          <p class="text-text-muted text-sm">Producción</p>
+          <p class="text-white text-xl font-bold">{{ stats.production }}/{{ stats.maxProduction }}</p>
+        </div>
+      </div>
+      <div class="h-2 bg-surface-border rounded-full overflow-hidden">
+        <div class="h-full bg-primary transition-all duration-300" [style.width.%]="productionPercent"></div>
+      </div>
+      <p class="text-xs text-text-muted mt-2">{{ productionPercent }}% de capacidad</p>
+    </div>
+
+    <!-- Efficiency -->
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/30">
+          <span class="material-symbols-outlined text-yellow-500">speed</span>
+        </div>
+        <div class="flex-1">
+          <p class="text-text-muted text-sm">Eficiencia</p>
+          <p class="text-white text-xl font-bold">{{ stats.efficiency }}%</p>
+        </div>
+      </div>
+      <div class="h-2 bg-surface-border rounded-full overflow-hidden">
+        <div class="h-full bg-yellow-500 transition-all duration-300" [style.width.%]="stats.efficiency"></div>
+      </div>
+      <p class="text-xs text-text-muted mt-2">Promedio de empleados: {{ averageEffectiveness }}%</p>
+    </div>
+
+    <!-- Employees -->
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+          <span class="material-symbols-outlined text-blue-500">group</span>
+        </div>
+        <div class="flex-1">
+          <p class="text-text-muted text-sm">Empleados</p>
+          <p class="text-white text-xl font-bold">{{ stats.employees }}/{{ stats.maxEmployees }}</p>
+        </div>
+      </div>
+      <div class="h-2 bg-surface-border rounded-full overflow-hidden">
+        <div class="h-full bg-blue-500 transition-all duration-300" [style.width.%]="employeePercent"></div>
+      </div>
+      <p class="text-xs text-text-muted mt-2">{{ workingEmployees }} trabajando activamente</p>
+    </div>
+
+    <!-- Weekly Profit -->
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+          <span class="material-symbols-outlined text-primary">paid</span>
+        </div>
+        <div class="flex-1">
+          <p class="text-text-muted text-sm">Ganancia Semanal</p>
+          <p class="text-primary text-xl font-bold font-mono">${{ weeklyProfit.toLocaleString() }}</p>
+        </div>
+      </div>
+      <div class="flex justify-between text-xs mt-2">
+        <span class="text-text-muted">Ingresos: <span class="text-primary font-mono">${{ weeklyIncome.toLocaleString() }}</span></span>
+      </div>
+      <div class="flex justify-between text-xs">
+        <span class="text-text-muted">Gastos: <span class="text-accent font-mono">${{ weeklyExpenses.toLocaleString() }}</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <!-- Employees List -->
+    <div class="xl:col-span-2">
+      <div class="bg-surface-dark border border-surface-border rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-surface-border flex items-center justify-between bg-[#1a211e]">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">badge</span>
+            <h2 class="font-bold text-lg text-white tracking-wide">Empleados</h2>
+          </div>
+          <button class="text-xs text-primary hover:text-white font-mono uppercase border border-primary/30 hover:border-primary px-2 py-1 rounded transition-colors">
+            Contratar Nuevo
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-xs uppercase text-text-muted border-b border-surface-border bg-black/20">
+                <th class="px-6 py-3 font-semibold tracking-wider">Nombre</th>
+                <th class="px-6 py-3 font-semibold tracking-wider">Posición</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-center">Efectividad</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-right">Salario</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-center">Estado</th>
+                <th class="px-6 py-3 font-semibold tracking-wider text-right">Última Acción</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm divide-y divide-surface-border">
+              <tr *ngFor="let employee of employees" class="group hover:bg-white/5 transition-colors">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+                      <span class="material-symbols-outlined text-primary text-sm">person</span>
+                    </div>
+                    <span class="font-medium text-white">{{ employee.name }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-text-muted">{{ employee.position }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex flex-col items-center">
+                    <span class="font-bold font-mono" [ngClass]="getEffectivenessClass(employee.effectiveness)">{{ employee.effectiveness }}%</span>
+                    <div class="w-full h-1 bg-surface-border rounded-full overflow-hidden mt-1">
+                      <div class="h-full transition-all"
+                           [ngClass]="getEffectivenessClass(employee.effectiveness)"
+                           [style.width.%]="employee.effectiveness"></div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-right font-mono text-white">${{ employee.wage.toLocaleString() }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex justify-center">
+                    <span class="px-2 py-1 rounded text-xs font-bold border {{ getStatusClass(employee.status) }}">
+                      {{ getStatusLabel(employee.status) }}
+                    </span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-right text-text-muted text-xs">{{ employee.lastAction }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="xl:col-span-1 flex flex-col gap-6">
+      <!-- Production Chart -->
+      <div class="bg-surface-dark border border-surface-border rounded-lg p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">analytics</span>
+          <h3 class="font-bold text-white">Producción (7 días)</h3>
+        </div>
+        <div class="flex items-end justify-between h-32 gap-1">
+          <div *ngFor="let value of productionHistory; let i = index"
+               class="flex-1 bg-primary/20 rounded-t border-t-2 border-primary hover:bg-primary/40 transition-all cursor-pointer relative group"
+               [style.height.%]="value"
+               [title]="value + '%'">
+            <span class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+              {{ value }}%
+            </span>
+          </div>
+        </div>
+        <div class="flex justify-between text-xs text-text-muted mt-2">
+          <span>Lun</span>
+          <span>Mar</span>
+          <span>Mié</span>
+          <span>Jue</span>
+          <span>Vie</span>
+          <span>Sáb</span>
+          <span>Dom</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-surface-dark border border-surface-border rounded-lg p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">bolt</span>
+          <h3 class="font-bold text-white">Acciones Rápidas</h3>
+        </div>
+        <div class="space-y-2">
+          <button class="w-full px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between">
+            <span>Entrenar Personal</span>
+            <span class="material-symbols-outlined text-sm">school</span>
+          </button>
+          <button class="w-full px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between">
+            <span>Ver Inventario</span>
+            <span class="material-symbols-outlined text-sm">inventory_2</span>
+          </button>
+          <button class="w-full px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between">
+            <span>Finanzas</span>
+            <span class="material-symbols-outlined text-sm">account_balance</span>
+          </button>
+          <button class="w-full px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded text-sm font-bold uppercase tracking-wider transition-all flex items-center justify-between">
+            <span>Actualizar</span>
+            <span class="material-symbols-outlined text-sm">upgrade</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Company Info -->
+      <div class="bg-surface-dark border border-surface-border rounded-lg p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">info</span>
+          <h3 class="font-bold text-white">Información</h3>
+        </div>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-text-muted">Director:</span>
+            <span class="text-white font-bold">{{ companyInfo.director }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-text-muted">Tipo:</span>
+            <span class="text-primary font-bold">{{ companyInfo.type }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-text-muted">Rating:</span>
+            <div class="flex items-center gap-1">
+              <span *ngFor="let star of getRatingStars()" class="material-symbols-outlined text-yellow-500 text-xs">{{ star }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-text-muted">Antigüedad:</span>
+            <span class="text-white font-mono">{{ companyInfo.days_old }} días</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="bg-gradient-to-r from-primary/5 to-transparent border border-primary/20 rounded-lg p-6">
+    <div class="flex items-start gap-4">
+      <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 flex-shrink-0">
+        <span class="material-symbols-outlined text-primary text-2xl">lightbulb</span>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white mb-2">Consejos de Gestión</h3>
+        <ul class="space-y-2 text-sm text-text-muted">
+          <li class="flex items-start gap-2">
+            <span class="text-primary">•</span>
+            <span>Mantén a tus empleados felices y efectivos para maximizar la producción</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary">•</span>
+            <span>Entrena regularmente a tu personal para mejorar su efectividad</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary">•</span>
+            <span>Verifica que tus empleados no estén en el hospital o viajando para optimizar el rendimiento</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-primary">•</span>
+            <span>Actualiza tu compañía cuando sea posible para aumentar la capacidad de producción</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
