@@ -1,0 +1,89 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
+        Link Your Torn Account
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-400">
+        Connect your Torn City account to access the marketplace
+      </p>
+    </div>
+
+    <div class="bg-gray-800 rounded-lg p-6 space-y-6">
+      <div class="bg-blue-900 bg-opacity-50 border border-blue-700 rounded-md p-4">
+        <h3 class="text-sm font-medium text-blue-300 mb-2">How to get your API Key:</h3>
+        <ol class="list-decimal list-inside text-sm text-gray-300 space-y-1">
+          <li>Go to <a href="https://www.torn.com/preferences.php#tab=api" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Torn Preferences → API Key</a></li>
+          <li>Create a new API key with "Basic Information" permission</li>
+          <li>Copy and paste it below</li>
+        </ol>
+      </div>
+
+      <form [formGroup]="linkForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="apiKey" class="block text-sm font-medium text-gray-300 mb-2">
+            Torn API Key
+          </label>
+          <input
+            id="apiKey"
+            formControlName="apiKey"
+            type="password"
+            required
+            class="appearance-none relative block w-full px-3 py-2 border border-gray-700 bg-gray-700 placeholder-gray-500 text-white rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+            placeholder="Enter your Torn API key"
+          />
+          <div *ngIf="linkForm.get('apiKey')?.invalid && linkForm.get('apiKey')?.touched" class="text-red-500 text-xs mt-1">
+            <span *ngIf="linkForm.get('apiKey')?.errors?.['required']">API Key is required</span>
+            <span *ngIf="linkForm.get('apiKey')?.errors?.['minlength']">API Key must be at least 16 characters</span>
+          </div>
+        </div>
+
+        <div *ngIf="successMessage" class="rounded-md bg-green-900 bg-opacity-50 p-4">
+          <div class="flex">
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-green-300">
+                {{ successMessage }}
+              </h3>
+              <p class="text-xs text-green-400 mt-1">Redirecting to marketplace...</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="rounded-md bg-red-900 bg-opacity-50 p-4">
+          <div class="flex">
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-300">
+                {{ errorMessage }}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            type="submit"
+            [disabled]="linkForm.invalid || isLoading"
+            class="flex-1 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span *ngIf="!isLoading">Link Account</span>
+            <span *ngIf="isLoading">Linking...</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="skipForNow()"
+            class="flex-1 flex justify-center py-2 px-4 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-transparent hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
+            Skip for now
+          </button>
+        </div>
+      </form>
+
+      <div class="bg-yellow-900 bg-opacity-30 border border-yellow-700 rounded-md p-4">
+        <p class="text-xs text-yellow-300">
+          <strong>Security:</strong> Your API key is encrypted and securely stored. We only use it to verify your Torn account and will never share it with anyone.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
