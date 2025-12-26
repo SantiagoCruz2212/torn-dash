@@ -6,14 +6,21 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdblockDetectorService implements OnDestroy {
+  // 🔧 MODO DESARROLLADOR - Cambia a false en producción
+  private readonly modo_dev = true;
+
   private adBlockDetected$ = new BehaviorSubject<boolean>(false);
   private isChecking = false;
   private checkInterval: any;
   private readonly CHECK_INTERVAL_MS = 3000; // Verificar cada 3 segundos
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && !this.modo_dev) {
       this.startContinuousDetection();
+    }
+
+    if (this.modo_dev) {
+      console.log('🔧 MODO DESARROLLADOR ACTIVO - Detección de AdBlock deshabilitada');
     }
   }
 
@@ -201,6 +208,10 @@ export class AdblockDetectorService implements OnDestroy {
    * Vuelve a verificar si hay AdBlock (fuerza una verificación inmediata)
    */
   async recheckAdBlock(): Promise<void> {
+    if (this.modo_dev) {
+      console.log('🔧 MODO DEV: Recheck ignorado');
+      return;
+    }
     console.log('🔄 Manual recheck requested...');
     await this.detectAdBlock();
   }

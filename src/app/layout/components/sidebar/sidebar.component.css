@@ -1,0 +1,18 @@
+.nav-item-container {
+  margin-bottom: 0.25rem;
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.submenu.expanded {
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}

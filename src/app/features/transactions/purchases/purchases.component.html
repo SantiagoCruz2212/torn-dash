@@ -1,0 +1,94 @@
+<div class="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-white mb-8">My Purchases</h1>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="text-center text-gray-400 py-12">
+      Loading purchases...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="errorMessage" class="bg-red-900 bg-opacity-50 text-red-300 rounded-lg p-4 mb-6">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Transactions Grid -->
+    <div *ngIf="!isLoading && !errorMessage && transactions.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let transaction of transactions" class="bg-gray-800 rounded-lg p-6">
+        <div class="flex justify-between items-start mb-4">
+          <h3 class="text-lg font-semibold text-white">{{ transaction.listing?.itemName }}</h3>
+          <span [class]="'px-2 py-1 text-xs rounded ' + getStatusClass(transaction.status)">
+            {{ transaction.status }}
+          </span>
+        </div>
+
+        <div class="space-y-2 text-sm text-gray-300">
+          <div class="flex justify-between">
+            <span>Quantity:</span>
+            <span class="font-medium text-white">{{ transaction.quantity }}</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Total Amount:</span>
+            <span class="font-bold text-green-400 text-lg">{{ formatPrice(transaction.totalAmount) }}</span>
+          </div>
+          <div class="flex justify-between pt-2 border-t border-gray-700">
+            <span>Seller:</span>
+            <span class="font-medium text-blue-400">{{ transaction.seller?.username }}</span>
+          </div>
+          <div *ngIf="transaction.seller?.tornPlayerName" class="flex justify-between">
+            <span>Torn Name:</span>
+            <span class="font-medium text-blue-300">{{ transaction.seller?.tornPlayerName }} [{{ transaction.seller?.tornPlayerId }}]</span>
+          </div>
+        </div>
+
+        <!-- Confirmation Status -->
+        <div *ngIf="transaction.status === TransactionStatus.PENDING" class="mt-4 p-3 bg-gray-700 rounded-md">
+          <div class="text-xs space-y-1">
+            <div class="flex items-center gap-2">
+              <span [class]="transaction.buyerConfirmedAt ? 'text-green-400' : 'text-gray-400'">
+                {{ transaction.buyerConfirmedAt ? '✓' : '○' }} You confirmed
+              </span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span [class]="transaction.sellerConfirmedAt ? 'text-green-400' : 'text-gray-400'">
+                {{ transaction.sellerConfirmedAt ? '✓' : '○' }} Seller confirmed
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs text-gray-500">
+          Created {{ transaction.createdAt | date:'short' }}
+        </div>
+
+        <!-- Action Buttons -->
+        <div *ngIf="transaction.status === TransactionStatus.PENDING" class="mt-4 flex gap-2">
+          <button
+            *ngIf="!transaction.buyerConfirmedAt"
+            (click)="confirmTransaction(transaction.id)"
+            class="flex-1 px-3 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700">
+            Confirm Received
+          </button>
+          <button
+            (click)="cancelTransaction(transaction.id)"
+            class="flex-1 px-3 py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-700">
+            Cancel
+          </button>
+        </div>
+
+        <!-- Completed Message -->
+        <div *ngIf="transaction.status === TransactionStatus.COMPLETED" class="mt-4 p-3 bg-green-900 bg-opacity-30 border border-green-700 rounded-md">
+          <p class="text-sm text-green-300">Transaction completed {{ transaction.completedAt | date:'short' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !errorMessage && transactions.length === 0" class="text-center py-12">
+      <p class="text-gray-400 text-lg mb-4">No purchases yet</p>
+      <a routerLink="/marketplace/browse" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+        Browse Marketplace
+      </a>
+    </div>
+  </div>
+</div>

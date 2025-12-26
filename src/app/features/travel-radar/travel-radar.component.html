@@ -1,24 +1,24 @@
-<div class="space-y-6">
+<div class="space-y-4 sm:space-y-5 md:space-y-6 px-4 sm:px-6 lg:px-8">
   <!-- Header -->
-  <div class="flex items-center justify-between">
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
     <div>
-      <h1 class="text-3xl font-bold text-white">Travel Radar</h1>
-      <p class="text-text-muted mt-1">Destinos de viaje y mejores items de cada país</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-white">Travel Radar</h1>
+      <p class="text-text-muted mt-1 text-xs sm:text-sm">Destinos de viaje y mejores items de cada país</p>
     </div>
 
     <!-- Current Travel Status -->
-    <div *ngIf="isTraveling" class="flex items-center gap-3 px-4 py-3 rounded-lg border-2 border-primary bg-primary/10">
-      <span class="material-symbols-outlined text-primary text-2xl animate-pulse">flight</span>
+    <div *ngIf="isTraveling" class="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border-2 border-primary bg-primary/10 w-full sm:w-auto">
+      <span class="material-symbols-outlined text-primary text-xl sm:text-2xl animate-pulse">flight</span>
       <div>
-        <p class="text-sm text-text-muted">Viajando a</p>
-        <p class="text-lg font-bold text-white">{{ travelDestination }}</p>
-        <p class="text-xs text-primary font-mono">{{ timeLeft }} restante</p>
+        <p class="text-xs sm:text-sm text-text-muted">Viajando a</p>
+        <p class="text-base sm:text-lg font-bold text-white">{{ travelDestination }}</p>
+        <p class="text-[10px] sm:text-xs text-primary font-mono">{{ timeLeft }} restante</p>
       </div>
     </div>
 
-    <div *ngIf="!isTraveling" class="flex items-center gap-2 px-4 py-2 rounded-lg border border-surface-border bg-surface-dark">
-      <span class="material-symbols-outlined text-primary">check_circle</span>
-      <span class="text-sm text-white font-bold">En Torn</span>
+    <div *ngIf="!isTraveling" class="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-surface-border bg-surface-dark w-full sm:w-auto justify-center sm:justify-start">
+      <span class="material-symbols-outlined text-primary text-base sm:text-xl">check_circle</span>
+      <span class="text-xs sm:text-sm text-white font-bold">En Torn</span>
     </div>
   </div>
 
@@ -31,148 +31,148 @@
   </app-ad-banner>
 
   <!-- Travel Stats Overview -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
-      <div class="flex items-center gap-3">
-        <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-          <span class="material-symbols-outlined text-primary">public</span>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-3 sm:p-4">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="size-10 sm:size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+          <span class="material-symbols-outlined text-primary text-base sm:text-xl">public</span>
         </div>
         <div>
-          <p class="text-text-muted text-sm">Destinos</p>
-          <p class="text-white text-2xl font-bold">{{ destinations.length }}</p>
+          <p class="text-text-muted text-xs sm:text-sm">Destinos</p>
+          <p class="text-white text-xl sm:text-2xl font-bold">{{ destinations.length }}</p>
         </div>
       </div>
     </div>
 
-    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
-      <div class="flex items-center gap-3">
-        <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-          <span class="material-symbols-outlined text-primary">schedule</span>
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-3 sm:p-4">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="size-10 sm:size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+          <span class="material-symbols-outlined text-primary text-base sm:text-xl">schedule</span>
         </div>
         <div>
-          <p class="text-text-muted text-sm">Viaje más corto</p>
-          <p class="text-white text-2xl font-bold">26 min</p>
+          <p class="text-text-muted text-xs sm:text-sm">Más corto</p>
+          <p class="text-white text-xl sm:text-2xl font-bold">26 min</p>
         </div>
       </div>
     </div>
 
-    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
-      <div class="flex items-center gap-3">
-        <div class="size-12 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30">
-          <span class="material-symbols-outlined text-accent">schedule</span>
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-3 sm:p-4">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="size-10 sm:size-12 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30">
+          <span class="material-symbols-outlined text-accent text-base sm:text-xl">schedule</span>
         </div>
         <div>
-          <p class="text-text-muted text-sm">Viaje más largo</p>
-          <p class="text-white text-2xl font-bold">4h 57m</p>
+          <p class="text-text-muted text-xs sm:text-sm">Más largo</p>
+          <p class="text-white text-xl sm:text-2xl font-bold">4h 57m</p>
         </div>
       </div>
     </div>
 
-    <div class="bg-surface-dark border border-surface-border rounded-lg p-4">
-      <div class="flex items-center gap-3">
-        <div class="size-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/30">
-          <span class="material-symbols-outlined text-yellow-500">trending_up</span>
+    <div class="bg-surface-dark border border-surface-border rounded-lg p-3 sm:p-4">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="size-10 sm:size-12 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/30">
+          <span class="material-symbols-outlined text-yellow-500 text-base sm:text-xl">trending_up</span>
         </div>
         <div>
-          <p class="text-text-muted text-sm">Promedio</p>
-          <p class="text-white text-2xl font-bold">2h 30m</p>
+          <p class="text-text-muted text-xs sm:text-sm">Promedio</p>
+          <p class="text-white text-xl sm:text-2xl font-bold">2h 30m</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Destinations Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
     <div *ngFor="let dest of destinations"
          class="bg-surface-dark border border-surface-border rounded-lg overflow-hidden hover:border-primary/50 transition-all group">
 
       <!-- Header with Flag -->
-      <div class="bg-gradient-to-r from-primary/10 to-transparent border-b border-surface-border p-4">
+      <div class="bg-gradient-to-r from-primary/10 to-transparent border-b border-surface-border p-3 sm:p-4">
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 sm:gap-3">
             <img [src]="dest.flagUrl"
                  [alt]="dest.name + ' flag'"
-                 class="w-12 h-8 rounded shadow-lg object-cover border border-surface-border">
+                 class="w-10 sm:w-12 h-7 sm:h-8 rounded shadow-lg object-cover border border-surface-border">
             <div>
-              <h3 class="text-lg font-bold text-white">{{ dest.name }}</h3>
-              <p class="text-xs text-text-muted">{{ dest.country_code.toUpperCase() }}</p>
+              <h3 class="text-base sm:text-lg font-bold text-white">{{ dest.name }}</h3>
+              <p class="text-[10px] sm:text-xs text-text-muted">{{ dest.country_code.toUpperCase() }}</p>
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">flight_takeoff</span>
+            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform text-xl sm:text-2xl">flight_takeoff</span>
           </div>
         </div>
       </div>
 
       <!-- Body -->
-      <div class="p-4 space-y-4">
+      <div class="p-3 sm:p-4 space-y-3 sm:space-y-4">
         <!-- Time -->
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5 sm:gap-2">
             <span class="material-symbols-outlined text-text-muted text-sm">schedule</span>
-            <span class="text-sm text-text-muted">Tiempo de vuelo</span>
+            <span class="text-xs sm:text-sm text-text-muted">Tiempo de vuelo</span>
           </div>
-          <span class="text-white font-bold font-mono">{{ dest.timeLabel }}</span>
+          <span class="text-white font-bold font-mono text-xs sm:text-sm">{{ dest.timeLabel }}</span>
         </div>
 
         <!-- Difficulty -->
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5 sm:gap-2">
             <span class="material-symbols-outlined text-text-muted text-sm">bar_chart</span>
-            <span class="text-sm text-text-muted">Dificultad</span>
+            <span class="text-xs sm:text-sm text-text-muted">Dificultad</span>
           </div>
-          <span class="px-2 py-1 rounded text-xs font-bold border {{ getDifficultyClass(dest.difficulty) }}">
+          <span class="px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs font-bold border {{ getDifficultyClass(dest.difficulty) }}">
             {{ getDifficultyLabel(dest.difficulty) }}
           </span>
         </div>
 
         <!-- Profit Potential -->
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5 sm:gap-2">
             <span class="material-symbols-outlined text-text-muted text-sm">attach_money</span>
-            <span class="text-sm text-text-muted">Potencial</span>
+            <span class="text-xs sm:text-sm text-text-muted">Potencial</span>
           </div>
-          <span class="text-primary font-bold">{{ dest.profitPotential }}</span>
+          <span class="text-primary font-bold text-xs sm:text-sm">{{ dest.profitPotential }}</span>
         </div>
 
         <!-- Description -->
-        <div class="bg-surface-border/30 border border-surface-border rounded p-3">
-          <p class="text-xs text-text-muted leading-relaxed">
-            <span class="material-symbols-outlined text-primary text-sm align-middle mr-1">info</span>
+        <div class="bg-surface-border/30 border border-surface-border rounded p-2 sm:p-3">
+          <p class="text-[10px] sm:text-xs text-text-muted leading-relaxed">
+            <span class="material-symbols-outlined text-primary text-xs sm:text-sm align-middle mr-1">info</span>
             {{ dest.description }}
           </p>
         </div>
 
         <!-- Items -->
         <div>
-          <p class="text-xs text-text-muted mb-2 font-bold uppercase tracking-wider">Items Disponibles:</p>
-          <div class="flex flex-wrap gap-2">
+          <p class="text-[10px] sm:text-xs text-text-muted mb-2 font-bold uppercase tracking-wider">Items Disponibles:</p>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2">
             <span *ngFor="let item of dest.items"
-                  class="px-2 py-1 bg-primary/10 border border-primary/20 rounded text-xs text-primary font-mono">
+                  class="px-1.5 sm:px-2 py-0.5 sm:py-1 bg-primary/10 border border-primary/20 rounded text-[10px] sm:text-xs text-primary font-mono">
               {{ item }}
             </span>
           </div>
         </div>
 
         <!-- Action Button -->
-        <button class="w-full mt-2 px-4 py-2 bg-primary/10 hover:bg-primary hover:text-black text-primary border border-primary/30 rounded font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 group">
-          <span class="material-symbols-outlined text-sm">flight</span>
+        <button class="w-full mt-2 px-3 sm:px-4 py-2 bg-primary/10 hover:bg-primary hover:text-black text-primary border border-primary/30 rounded font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 group">
+          <span class="material-symbols-outlined text-xs sm:text-sm">flight</span>
           <span>Viajar a {{ dest.name }}</span>
-          <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          <span class="material-symbols-outlined text-xs sm:text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </button>
       </div>
     </div>
   </div>
 
   <!-- Info Section -->
-  <div class="bg-gradient-to-r from-primary/5 to-transparent border border-primary/20 rounded-lg p-6">
-    <div class="flex items-start gap-4">
-      <div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 flex-shrink-0">
-        <span class="material-symbols-outlined text-primary text-2xl">lightbulb</span>
+  <div class="bg-gradient-to-r from-primary/5 to-transparent border border-primary/20 rounded-lg p-4 sm:p-5 md:p-6">
+    <div class="flex items-start gap-3 sm:gap-4">
+      <div class="size-10 sm:size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 flex-shrink-0">
+        <span class="material-symbols-outlined text-primary text-xl sm:text-2xl">lightbulb</span>
       </div>
       <div>
-        <h3 class="text-lg font-bold text-white mb-2">Consejos para Viajar</h3>
-        <ul class="space-y-2 text-sm text-text-muted">
+        <h3 class="text-base sm:text-lg font-bold text-white mb-2">Consejos para Viajar</h3>
+        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-text-muted">
           <li class="flex items-start gap-2">
             <span class="text-primary">•</span>
             <span>Los viajes más largos generalmente ofrecen mejores items y mayor potencial de ganancia</span>
