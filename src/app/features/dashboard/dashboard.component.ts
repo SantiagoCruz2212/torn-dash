@@ -45,19 +45,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     life: { current: 0, max: 0, percent: 0 }
   };
 
-  // Travel destinations
+  // Travel destinations (reduced to 3 for compact view)
   travelDestinations: TravelDestination[] = [
-    {
-      country: 'Argentina',
-      flagUrl: 'https://flagcdn.com/w40/ar.png',
-      flightTime: '2h 15m',
-      itemCost: '$4,200',
-      profit: '+$850k',
-      profitLabel: 'per run',
-      profitClass: 'text-primary',
-      trend: [40, 60, 30, 80],
-      trendClass: 'bg-primary'
-    },
     {
       country: 'United Kingdom',
       flagUrl: 'https://flagcdn.com/w40/gb.png',
@@ -70,6 +59,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       trendClass: 'bg-primary'
     },
     {
+      country: 'Argentina',
+      flagUrl: 'https://flagcdn.com/w40/ar.png',
+      flightTime: '2h 15m',
+      itemCost: '$4,200',
+      profit: '+$850k',
+      profitLabel: 'per run',
+      profitClass: 'text-primary',
+      trend: [40, 60, 30, 80],
+      trendClass: 'bg-primary'
+    },
+    {
       country: 'China',
       flagUrl: 'https://flagcdn.com/w40/cn.png',
       flightTime: '4h 10m',
@@ -79,17 +79,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       profitClass: 'text-accent',
       trend: [80, 60, 40, 20],
       trendClass: 'bg-accent'
-    },
-    {
-      country: 'Switzerland',
-      flagUrl: 'https://flagcdn.com/w40/ch.png',
-      flightTime: '1h 55m',
-      itemCost: '$28,000',
-      profit: '+$650k',
-      profitLabel: 'per run',
-      profitClass: 'text-primary',
-      trend: [40, 45, 50, 55],
-      trendClass: 'bg-primary'
     }
   ];
 
